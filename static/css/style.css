@@ -1,0 +1,111 @@
+.row:before, .row:after {
+    display: flex !important;
+    }
+    
+p {
+    text-align: justify;
+}
+
+.white_text {
+    color: white;
+}
+
+h1 {
+    padding: 25px;
+    color: white;
+    font-weight: bold;
+}
+
+h2, h3 {
+    font-weight: bold;
+}
+
+h4, h5 {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.small_image {
+    height: 100%;
+    width: 100%;
+}
+
+.chart {
+    height: 400px;
+    width: 850px;
+    align-self: center;
+}
+
+.pic_header {
+    width: 150px;
+    float: right;
+}
+
+.bg_black {
+    background-color: black;
+}
+
+.blue_btm_border {
+    border-style: solid;
+    border-color: black black blue black;
+    border-width: 5px;
+}
+
+.blue_top_border {
+    border-style: solid;
+    border-color: blue black black black;
+    border-width: 5px;
+}
+
+.center_text {
+    text-align: center;
+}
+
+.vert_center {
+    margin: auto;
+    width: 50%;
+}
+
+hr{
+    height: 1px;
+    background-color: blue;
+    border: none;
+}
+
+.selected {
+    box-shadow: 5px 5px 10px gray;
+}
+
+.figHover:hover {
+    box-shadow: 5px 5px 10px gray;
+}
+
+@media (max-width: 910px) {
+    .chart {
+        height: 300px;
+        width: 768px;
+        align-self: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .chart {
+        height: 300px;
+        width: 768px;
+        align-self: center;
+    }
+}
+
+@media (max-width: 630px) {
+    .chart {
+        height: 200px;
+        width: 630px;
+        align-self: center;
+    }
+}
+/* 
+@media only screen and (min-width: 768px) {
+    .chart {
+        padding-top: 1px;
+    }
+} */
