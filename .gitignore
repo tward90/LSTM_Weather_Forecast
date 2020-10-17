@@ -7,3 +7,5 @@ differenced_data.csv
 .vscode
 
 cleaned.csv
+ARIMA.ipynb
+differenced_data_365only.csv
