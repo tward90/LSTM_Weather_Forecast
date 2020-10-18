@@ -9,3 +9,7 @@ differenced_data.csv
 cleaned.csv
 ARIMA.ipynb
 differenced_data_365only.csv
+
+checkpoint
+weightsDifference.data-00000-of-00001
+weightsDifference.index
