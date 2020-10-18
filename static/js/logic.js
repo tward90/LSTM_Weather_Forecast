@@ -2,7 +2,7 @@
 // // GLOBAL VARIABLES
 // ///////////////////////////////////////////////////////////
 let futureDates,
-    modelResults,
+    // modelResults,
     modelAvgTemp,
     modelMinTemp,
     modelMaxTemp,
@@ -15,8 +15,7 @@ let futureDates,
     modelSnow,
     modelThunder,
     modelHail,
-    OWMfutureDates,
-    OWMResults,
+    // OWMResults,
     OWMAvgTemp,
     OWMMinTemp,
     OWMMaxTemp,
@@ -34,14 +33,14 @@ let futureDates,
 // FUNCTION TO FETCH MODEL RESULTS AND OPENWEATHERMAP FORECAST
 //////////////////////////////////////////////////////////////////
 function init(){
-    d3.json('dummy_data.json')
+    d3.json('/model_data')
     .then((response)=>{
         modelResults = response;
         console.log('Model Results:')
         console.log(modelResults);
 
         // extract the data needed for each graph
-        futureDates = Object.keys(modelResults);
+        // futureDates = Object.keys(modelResults);
         params = Object.values(modelResults);
         modelAvgTemp = params.map(item => Math.round(item['temp']));
         modelMinTemp = params.map(item => Math.round(item['min']));
@@ -80,7 +79,7 @@ function init(){
         const maxTempTrace = {
             type: 'scatter',
             mode: 'lines',
-            name: 'Min Temperature',
+            name: 'Max Temperature',
             x: futureDates,
             y: modelMaxTemp,
             line: {color:'orange'}
@@ -96,15 +95,15 @@ function init(){
         };
         Plotly.newPlot('LSTM-plot', [avgTempTrace, minTempTrace, maxTempTrace], layout);
     }); 
-    d3.json('dummy_data.json')
+    d3.json('/forecast_data')
     .then((response)=>{
         OWMResults = response;
         console.log('OpenWeatherMap Results:')
         console.log(OWMResults);
 
         // extract the data needed for each graph
-        OWMfutureDates = Object.keys(OWMResults);
-        params = Object.values(modelResults);
+        params = Object.values(OWMResults);
+        futureDates = params.map(item => item['date']);
         OWMAvgTemp = params.map(item => Math.round(item['temp']));
         OWMMinTemp = params.map(item => Math.round(item['min']));
         OWMMaxTemp = params.map(item => Math.round(item['max']));
@@ -128,7 +127,7 @@ function init(){
             mode: 'lines',
             name: 'Mean Temperature',
             x: futureDates,
-            y: modelAvgTemp,
+            y: OWMAvgTemp,
             line: {color:'black'}
         };
         const minTempTrace = {
@@ -136,15 +135,15 @@ function init(){
             mode: 'lines',
             name: 'Min Temperature',
             x: futureDates,
-            y: modelMinTemp,
+            y: OWMMinTemp,
             line: {color:'green'}
         };
         const maxTempTrace = {
             type: 'scatter',
             mode: 'lines',
-            name: 'Min Temperature',
+            name: 'Max Temperature',
             x: futureDates,
-            y: modelMaxTemp,
+            y: OWMMaxTemp,
             line: {color:'orange'}
         };
         // define layout
@@ -189,7 +188,7 @@ function chooseModelParameter (parameter){
 function chooseOpenWeatherParameter (parameter){
     switch(parameter){
         case "temp":
-            return [OWMTemp, OWMMinTemp, OWMMaxTemp];
+            return [OWMAvgTemp, OWMMinTemp, OWMMaxTemp];
         case "Dew Point":
             return OWMDewp;
         case "Barometric Pressure":
@@ -201,7 +200,7 @@ function chooseOpenWeatherParameter (parameter){
         case "prcp":
             return [OWMRain, OWMFog, OWMSnow, OWMThunder, OWMHail];
         default:
-            return [OWMTemp, OWMMinTemp, OWMMaxTemp];
+            return [OWMAvgTemp, OWMMinTemp, OWMMaxTemp];
     }
 };
 
