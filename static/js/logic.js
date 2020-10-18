@@ -2,7 +2,6 @@
 // // GLOBAL VARIABLES
 // ///////////////////////////////////////////////////////////
 let futureDates,
-    // modelResults,
     modelAvgTemp,
     modelMinTemp,
     modelMaxTemp,
@@ -15,7 +14,6 @@ let futureDates,
     modelSnow,
     modelThunder,
     modelHail,
-    // OWMResults,
     OWMAvgTemp,
     OWMMinTemp,
     OWMMaxTemp,
@@ -40,7 +38,6 @@ function init(){
         console.log(modelResults);
 
         // extract the data needed for each graph
-        // futureDates = Object.keys(modelResults);
         params = Object.values(modelResults);
         modelAvgTemp = params.map(item => Math.round(item['temp']));
         modelMinTemp = params.map(item => Math.round(item['min']));
