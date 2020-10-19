@@ -41,8 +41,7 @@ function init(){
         params = Object.values(modelResults);
         timestamp = Object.keys(modelResults);
         dt = timestamp.map(item=>parseInt(item));
-        date = dt.map(item=>new Date(item).toLocaleDateString("en-US"));
-        console.log(date);
+        date = dt.map(item=>new Date(item));
         modelAvgTemp = params.map(item => Math.round(item['temp']));
         modelMinTemp = params.map(item => Math.round(item['min']));
         modelMaxTemp = params.map(item => Math.round(item['max']));
@@ -90,7 +89,6 @@ function init(){
             yaxis: {
                 title: 'Temperature',
                 autorange: true,
-                range: [-40,110]
             },
             title: 'Predicted Temperatures'
         };
@@ -105,6 +103,7 @@ function init(){
         // extract the data needed for each graph
         params = Object.values(OWMResults);
         futureDates = params.map(item => item['date']);
+        console.log(futureDates);
         OWMAvgTemp = params.map(item => Math.round(item['temp']));
         OWMMinTemp = params.map(item => Math.round(item['min']));
         OWMMaxTemp = params.map(item => Math.round(item['max']));
@@ -127,7 +126,7 @@ function init(){
             type: 'scatter',
             mode: 'lines',
             name: 'Mean Temperature',
-            x: date,
+            x: futureDates,
             y: OWMAvgTemp,
             line: {color:'black'}
         };
@@ -135,7 +134,7 @@ function init(){
             type: 'scatter',
             mode: 'lines',
             name: 'Min Temperature',
-            x: date,
+            x: futureDates,
             y: OWMMinTemp,
             line: {color:'green'}
         };
@@ -143,7 +142,7 @@ function init(){
             type: 'scatter',
             mode: 'lines',
             name: 'Max Temperature',
-            x: date,
+            x: futureDates,
             y: OWMMaxTemp,
             line: {color:'orange'}
         };
@@ -152,7 +151,6 @@ function init(){
             yaxis: {
                 title: 'Temperature',
                 autorange: true,
-                range: [-40,110]
             },
             title: 'Predicted Temperatures'
         };
