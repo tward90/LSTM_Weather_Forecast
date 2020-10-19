@@ -11,16 +11,21 @@ import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.preprocessing import timeseries_dataset_from_array
 import numpy as np
+from flask import Flask
+from flask_caching import Cache
+
+config = {
+    "DEBUG": True,          # some Flask specific configs
+    "CACHE_TYPE": "simple", # Flask-Caching related configs
+    "CACHE_DEFAULT_TIMEOUT": 300
+}
 
 # Create an instance of the app
 app = Flask(__name__)
 
-# TODO:
-# Use the index route to make an API call to OpenWeatherMap for data from current day and past five days
-# Run historical data trough the LSTM model
-# Return model results
-# Apply necessary transformations to the data (ie. backtrack diff())
-# jsonify the data and send to javascript layer
+# tell Flask to use the above defined config
+app.config.from_mapping(config)
+cache = Cache(app)
 
 # Create and index route
 @app.route('/')
@@ -29,12 +34,14 @@ def index():
 
 # Create a route to process data with our LSTM model
 @app.route('/model_data')
+@cache.cached(timeout=600)
 def apply_model():
     ################################################################################
     # STEP 1: GET DATA FROM OPENWEATHERMAP API
     ################################################################################
     # Determine the current date and the past five days
     days = pd.date_range(dt.date.today()-dt.timedelta(days=5), periods=6, freq="D")
+    days = days[1:]
 
     # Make requests for each day to the OpenWeatherMap API
     json_data = []
@@ -101,14 +108,14 @@ def apply_model():
 
     # Calculate dates a year ago
     new_date_start = df.index[0] - pd.DateOffset(years=1)
-    new_date_stop = df.index[5] - pd.DateOffset(years=1)
+    new_date_stop = df.index[4] - pd.DateOffset(years=1)
 
     # Slice the data needed from last year
     df_a_year_ago = data_to_diff_with[new_date_start:new_date_stop]
 
     # Append the two dataframes, last year's and this year, and difference them
     new_df = df_a_year_ago.append(df)
-    diff_df = new_df.diff(periods=6).dropna()
+    diff_df = new_df.diff(periods=5).dropna()
 
     ################################################################################
     # STEP 3: SCALE THE DATA
@@ -137,7 +144,7 @@ def apply_model():
     # STEP 6: INVERT THE DATA
     ################################################################################
     # Revert the data to dataframe format
-    pred_df = pd.DataFrame(predictions, columns=diff_df.columns, index = diff_df.index + dt.timedelta(days=6))
+    pred_df = pd.DataFrame(predictions, columns=diff_df.columns, index = diff_df.index + dt.timedelta(days=5))
 
     # Remove the scaling
     unscaled_df = pred_df.mul(np.array(scaler_data["scale_sdev"]))
@@ -145,7 +152,7 @@ def apply_model():
 
     # Remove the difference
     pred_lastyear_date_start = unscaled_df.index[0] - pd.DateOffset(years=1)
-    pred_lastyear_date_stop = unscaled_df.index[5] - pd.DateOffset(years=1)
+    pred_lastyear_date_stop = unscaled_df.index[4] - pd.DateOffset(years=1)
 
     # Slice the data needed from last year
     pred_df_a_year_ago = data_to_diff_with[pred_lastyear_date_start:pred_lastyear_date_stop]
@@ -158,6 +165,7 @@ def apply_model():
 
 # Create a route to process data
 @app.route('/forecast_data')
+@cache.cached(timeout=600)
 def get_forecast():
     # Make request for seven day forecast
     url = 'https://api.openweathermap.org/data/2.5/onecall?lat=29.7604&lon=-95.3698&exclude=current,minutely,hourly,alerts'
