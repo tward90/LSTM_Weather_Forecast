@@ -1,7 +1,7 @@
 // ///////////////////////////////////////////////////////////
 // // GLOBAL VARIABLES
 // ///////////////////////////////////////////////////////////
-let futureDates,
+let date,
     modelAvgTemp,
     modelMinTemp,
     modelMaxTemp,
@@ -39,6 +39,10 @@ function init(){
 
         // extract the data needed for each graph
         params = Object.values(modelResults);
+        timestamp = Object.keys(modelResults);
+        dt = timestamp.map(item=>parseInt(item));
+        date = dt.map(item=>new Date(item).toLocaleDateString("en-US"));
+        console.log(date);
         modelAvgTemp = params.map(item => Math.round(item['temp']));
         modelMinTemp = params.map(item => Math.round(item['min']));
         modelMaxTemp = params.map(item => Math.round(item['max']));
@@ -61,7 +65,7 @@ function init(){
             type: 'scatter',
             mode: 'lines',
             name: 'Mean Temperature',
-            x: futureDates,
+            x: date,
             y: modelAvgTemp,
             line: {color:'black'}
         };
@@ -69,7 +73,7 @@ function init(){
             type: 'scatter',
             mode: 'lines',
             name: 'Min Temperature',
-            x: futureDates,
+            x: date,
             y: modelMinTemp,
             line: {color:'green'}
         };
@@ -77,7 +81,7 @@ function init(){
             type: 'scatter',
             mode: 'lines',
             name: 'Max Temperature',
-            x: futureDates,
+            x: date,
             y: modelMaxTemp,
             line: {color:'orange'}
         };
@@ -90,7 +94,7 @@ function init(){
             },
             title: 'Predicted Temperatures'
         };
-        Plotly.newPlot('LSTM-plot', [avgTempTrace, minTempTrace, maxTempTrace], layout);
+        Plotly.newPlot('LSTM-plot', [maxTempTrace, avgTempTrace, minTempTrace], layout);
     }); 
     d3.json('/forecast_data')
     .then((response)=>{
@@ -123,7 +127,7 @@ function init(){
             type: 'scatter',
             mode: 'lines',
             name: 'Mean Temperature',
-            x: futureDates,
+            x: date,
             y: OWMAvgTemp,
             line: {color:'black'}
         };
@@ -131,7 +135,7 @@ function init(){
             type: 'scatter',
             mode: 'lines',
             name: 'Min Temperature',
-            x: futureDates,
+            x: date,
             y: OWMMinTemp,
             line: {color:'green'}
         };
@@ -139,7 +143,7 @@ function init(){
             type: 'scatter',
             mode: 'lines',
             name: 'Max Temperature',
-            x: futureDates,
+            x: date,
             y: OWMMaxTemp,
             line: {color:'orange'}
         };
@@ -152,7 +156,7 @@ function init(){
             },
             title: 'Predicted Temperatures'
         };
-        Plotly.newPlot('web-forecast-plot', [avgTempTrace, minTempTrace, maxTempTrace], layout);
+        Plotly.newPlot('web-forecast-plot', [maxTempTrace, avgTempTrace, minTempTrace], layout);
     }); 
 };
 
@@ -233,7 +237,7 @@ function updateInteractivePlot(parameter){
                 type: 'scatter',
                 mode: 'lines',
                 name: 'Mean Temperature',
-                x: futureDates,
+                x: date,
                 y: chooseModelParameter(parameterSelected)[0],
                 line: {color:'black'}
             };
@@ -241,15 +245,15 @@ function updateInteractivePlot(parameter){
                 type: 'scatter',
                 mode: 'lines',
                 name: 'Min Temperature',
-                x: futureDates,
+                x: date,
                 y: chooseModelParameter(parameterSelected)[1],
                 line: {color:'green'}
             };
             const modelMaxTempTrace = {
                 type: 'scatter',
                 mode: 'lines',
-                name: 'Min Temperature',
-                x: futureDates,
+                name: 'Max Temperature',
+                x: date,
                 y: chooseModelParameter(parameterSelected)[2],
                 line: {color:'orange'}
             };
@@ -262,14 +266,14 @@ function updateInteractivePlot(parameter){
                 },
                 title: 'Predicted Temperatures'
             };
-            Plotly.newPlot('LSTM-plot', [modelAvgTempTrace, modelMinTempTrace, modelMaxTempTrace], layout);
+            Plotly.newPlot('LSTM-plot', [modelMaxTempTrace, modelAvgTempTrace, modelMinTempTrace], layout);
 
             // Plot the forecasted temperatures from OpenWeatherMap
             const OWMAvgTempTrace = {
                 type: 'scatter',
                 mode: 'lines',
                 name: 'Mean Temperature',
-                x: futureDates,
+                x: date,
                 y: chooseOpenWeatherParameter(parameterSelected)[0],
                 line: {color:'black'}
             };
@@ -277,15 +281,15 @@ function updateInteractivePlot(parameter){
                 type: 'scatter',
                 mode: 'lines',
                 name: 'Min Temperature',
-                x: futureDates,
+                x: date,
                 y: chooseOpenWeatherParameter(parameterSelected)[1],
                 line: {color:'green'}
             };
             const OWMMaxTempTrace = {
                 type: 'scatter',
                 mode: 'lines',
-                name: 'Min Temperature',
-                x: futureDates,
+                name: 'Max Temperature',
+                x: date,
                 y: chooseOpenWeatherParameter(parameterSelected)[2],
                 line: {color:'orange'}
             };
@@ -298,7 +302,7 @@ function updateInteractivePlot(parameter){
                 },
                 title: 'Predicted Temperatures'
             };
-            Plotly.newPlot('web-forecast-plot', [OWMAvgTempTrace, OWMMinTempTrace, OWMMaxTempTrace], OWMlayout);
+            Plotly.newPlot('web-forecast-plot', [OWMMaxTempTrace, OWMAvgTempTrace, OWMMinTempTrace], OWMlayout);
         }
         else {
             // Plot model parameter chosen by user
@@ -306,7 +310,7 @@ function updateInteractivePlot(parameter){
                 type: 'scatter',
                 mode: 'lines',
                 name: `${parameterSelected}`,
-                x: futureDates,
+                x: date,
                 y: chooseModelParameter(parameterSelected),
                 line: {color:'black'}
             };
@@ -326,7 +330,7 @@ function updateInteractivePlot(parameter){
                 type: 'scatter',
                 mode: 'lines',
                 name: `${parameterSelected}`,
-                x: futureDates,
+                x: date,
                 y: chooseOpenWeatherParameter(parameterSelected),
                 line: {color:'black'}
             };
@@ -345,31 +349,31 @@ function updateInteractivePlot(parameter){
     else {
     // create a bar chart to show all other model parameters: rain, fog, snow, thunder, and hail
     const modelRainTrace = {
-        x: futureDates,
+        x: date,
         y: modelRain,
         name: 'Rain or Drizzle',
         type: 'bar'
     };
     const modelFogTrace = {
-        x: futureDates,
+        x: date,
         y: modelFog,
         name: 'Fog',
         type: 'bar'
     };
     const modelSnowTrace = {
-        x: futureDates,
+        x: date,
         y: modelSnow,
         name: 'Snow',
         type: 'bar'
     };
     const modelThunderTrace = {
-        x: futureDates,
+        x: date,
         y: modelThunder,
         name: 'Thunder',
         type: 'bar'
     };
     const modelHailTrace = {
-        x: futureDates,
+        x: date,
         y: modelHail,
         name: 'Hail',
         type: 'bar'
@@ -389,31 +393,31 @@ function updateInteractivePlot(parameter){
 
     // create a bar chart to show all other OpenWeather parameters: rain, fog, snow, thunder, and hail
     const OWMrainTrace = {
-        x: futureDates,
+        x: date,
         y: OWMRain,
         name: 'Rain or Drizzle',
         type: 'bar'
     };
     const OWMfogTrace = {
-        x: futureDates,
+        x: date,
         y: OWMFog,
         name: 'Fog',
         type: 'bar'
     };
     const OWMsnowTrace = {
-        x: futureDates,
+        x: date,
         y: OWMSnow,
         name: 'Snow',
         type: 'bar'
     };
     const OWMthunderTrace = {
-        x: futureDates,
+        x: date,
         y: OWMThunder,
         name: 'Thunder',
         type: 'bar'
     };
     const OWMhailTrace = {
-        x: futureDates,
+        x: date,
         y: OWMHail,
         name: 'Hail',
         type: 'bar'
