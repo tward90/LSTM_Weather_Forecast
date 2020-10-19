@@ -33,7 +33,7 @@ let date,
 function init(){
     d3.json('/model_data')
     .then((response)=>{
-        modelResults = response;
+        const modelResults = response;
         console.log('Model Results:')
         console.log(modelResults);
 
@@ -41,7 +41,7 @@ function init(){
         params = Object.values(modelResults);
         timestamp = Object.keys(modelResults);
         dt = timestamp.map(item=>parseInt(item));
-        date = dt.map(item=>new Date(item));
+        modelDate = dt.map(item=>new Date(item));
         modelAvgTemp = params.map(item => Math.round(item['temp']));
         modelMinTemp = params.map(item => Math.round(item['min']));
         modelMaxTemp = params.map(item => Math.round(item['max']));
@@ -64,7 +64,7 @@ function init(){
             type: 'scatter',
             mode: 'lines',
             name: 'Mean Temperature',
-            x: date,
+            x: modelDate,
             y: modelAvgTemp,
             line: {color:'black'}
         };
@@ -72,7 +72,7 @@ function init(){
             type: 'scatter',
             mode: 'lines',
             name: 'Min Temperature',
-            x: date,
+            x: modelDate,
             y: modelMinTemp,
             line: {color:'green'}
         };
@@ -80,7 +80,7 @@ function init(){
             type: 'scatter',
             mode: 'lines',
             name: 'Max Temperature',
-            x: date,
+            x: modelDate,
             y: modelMaxTemp,
             line: {color:'orange'}
         };
@@ -102,8 +102,8 @@ function init(){
 
         // extract the data needed for each graph
         params = Object.values(OWMResults);
-        futureDates = params.map(item => item['date']);
-        console.log(futureDates);
+        date = params.map(item => item['date']);
+        console.log(date);
         OWMAvgTemp = params.map(item => Math.round(item['temp']));
         OWMMinTemp = params.map(item => Math.round(item['min']));
         OWMMaxTemp = params.map(item => Math.round(item['max']));
@@ -126,7 +126,7 @@ function init(){
             type: 'scatter',
             mode: 'lines',
             name: 'Mean Temperature',
-            x: futureDates,
+            x: date,
             y: OWMAvgTemp,
             line: {color:'black'}
         };
@@ -134,7 +134,7 @@ function init(){
             type: 'scatter',
             mode: 'lines',
             name: 'Min Temperature',
-            x: futureDates,
+            x: date,
             y: OWMMinTemp,
             line: {color:'green'}
         };
@@ -142,7 +142,7 @@ function init(){
             type: 'scatter',
             mode: 'lines',
             name: 'Max Temperature',
-            x: futureDates,
+            x: date,
             y: OWMMaxTemp,
             line: {color:'orange'}
         };
@@ -383,7 +383,9 @@ function updateInteractivePlot(parameter){
         barmode: 'group',
         title: 'Precipitation',
         yaxis:{
-            title: 'Probability'
+            title: 'Probability',
+            range: [0,1],
+            autorange: false
         }
     };
 
@@ -427,7 +429,9 @@ function updateInteractivePlot(parameter){
         barmode: 'group',
         title: 'Precipitation',
         yaxis:{
-            title: 'Probability'
+            title: 'Probability',
+            range: [0,1],
+            autorange: false
         }
     };
 
