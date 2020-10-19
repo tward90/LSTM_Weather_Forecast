@@ -34,7 +34,7 @@ def index():
 
 # Create a route to process data with our LSTM model
 @app.route('/model_data')
-@cache.cached(timeout=600)
+# @cache.cached(timeout=600)
 def apply_model():
     ################################################################################
     # STEP 1: GET DATA FROM OPENWEATHERMAP API
@@ -165,7 +165,7 @@ def apply_model():
 
 # Create a route to process data
 @app.route('/forecast_data')
-@cache.cached(timeout=600)
+# @cache.cached(timeout=600)
 def get_forecast():
     # Make request for seven day forecast
     url = 'https://api.openweathermap.org/data/2.5/onecall?lat=29.7604&lon=-95.3698&exclude=current,minutely,hourly,alerts'
