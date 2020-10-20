@@ -12,6 +12,14 @@
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <!-- CSS stylesheet -->
     <link rel="stylesheet" href="../static/css/style.css">
+    <!-- Leaflet CSS-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" 
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" 
+        crossorigin=""/>
+    <!-- Icons -->
+    <link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="static/css/leaflet.extra-markers.min.css">
+
 
     <title>ML Weather</title>
   </head>
@@ -34,13 +42,15 @@
             </div>
         </div>
     </div>
+
+    
     <div class="container">
             <main role="main" class="col-md-12">
                 <!-- Navigation bar -->
                 <nav class="d-none d-md-block">
                     <ul class="nav nav-pills nav-justify pt-3">
-                        <li class="nav-item figHover"><a class="nav-link" href="index.html"><i class="glyphicon glyphicon-home"></i>Home</a></li>
-                        <li class="nav-item figHover"><a class="nav-link" href="about.html"><i class="glyphicon glyphicon-file"></i>About</a></li>
+                        <li class="nav-item figHover"><a class="nav-link" href="index.html"><i class="glyphicon glyphicon-home"></i> Home</a></li>
+                        <li class="nav-item figHover"><a class="nav-link" href="about.html"><i class="glyphicon glyphicon-file"></i> About</a></li>
                         <li class="nav-item figHover"><a class="nav-link" href="weather_viz.html"><i class="glyphicon glyphicon-cloud"></i>Visualizations</a></li>
                     </ul> 
                 </nav>
@@ -51,56 +61,69 @@
                                 <i class="glyphicon glyphicon-menu-hamburger"></i> Menu
                             </a>
                             <div class="dropdown-menu dropright">
-                                <a class="dropdown-item figHover" href="index.html"><i class="glyphicon glyphicon-home"></i>Home</a>
-                                <a class="dropdown-item figHover" href="about.html"><i class="glyphicon glyphicon-file"></i>About</a>
+                                <a class="dropdown-item figHover" href="index.html"><i class="glyphicon glyphicon-home"></i> Home</a>
+                                <a class="dropdown-item figHover" href="about.html"><i class="glyphicon glyphicon-file"></i> About</a>
                                 <a class="dropdown-item figHover" href="weather_viz.html"><i class="glyphicon glyphicon-cloud"></i> Visualizations</a>
                             </div>
                         </div> 
                     </div>              
                 </nav>
+
                 <!-- Brief description -->
-                <div class='row padding'>
-                    <h4> A comparison betweeen a weather forecast generated using an Long Short-Term Memory (LSTM) neural network and the weather forecast from 
-                        <a href='https://openweathermap.org/api'>OpenWeatherMap API</a>.</h4>
-                </div>
-                <!-- Graphs depicting comparative weather forecasts -->
-                <div class='row parameters'>
-                    <select id="parameters" onchange="handlePlotSubmit(this.value)">
-                    <option value="" disabled selected hidden>Parameters:</option>
-                    <option value="temp">Temperature</option>
-                    <option value="Dew Point">Dew Point</option>
-                    <option value="Barometric Pressure">Pressure</option>
-                    <option value="Wind Speed">Wind Speed</option>
-                    <option value="Visibility">Visibility</option>
-                    <option value="prcp">Precipitation</option>
-                    </select>
-                </div>
-                <!-- Plots with predictions from LSTM model -->
                 <div class='row dk_blue_text'>
-                    <div class='col-md-12 col'>
-                        <h3>LSTM Weather Forecast</h3>
-                    </div>
-                    <div class='row'>
-                        <div class='col-md-12 col responsive-plot'>
-                            <div class='chart' id='LSTM-plot'></div>  
-                        </div>
-                    </div>
+                    <h3>Project Objective</h3>
                 </div>
-                <br>
-                <!-- Plots with forecast from OpenWeatherMap API -->
+
+                <div class='row tab'>
+                        <h4>To apply machine learning models to the NOAA_GSOD dataset to forecast 5 days of Houston weather given current weather 
+                            conditions. Furthermore, to create an application that will dynamically display the forecast in a web page.</h4>
+                </div>
+
                 <div class='row dk_blue_text'>
-                    <div class='col-md-12 pt-3'>
-                        <h3>OpenWeatherMap Forecast</h3>
-                    </div>
-                    <div class='row'>
-                        <div class='col-md-12 responsive-plot'>
-                            <div class='chart' id='web-forecast-plot'></div>
-                        </div>
-                    </div>
+                    <h3>Data Overview</h3>
                 </div>
-            </main>
-        </div>
-    </div>
+
+                <div class='row'>
+                    <h4>NOAA GSOD - Global Surface Summary of the Day Weather 
+                </div>
+
+                <div class='row'>  
+                    <h4>DataSource : <a href='https://www.kaggle.com/noaa/gsod?select=gsod1950'>Kaggle: NOAA_GSOD</a></h4>
+                </div>
+
+                <div class='row tab'>
+                    <h4>
+                        This public dataset was created by the National Oceanic and Atmospheric Administration (NOAA) and includes global data
+                        obtained from the USAF Climatology Center. This dataset covers GSOD data between 1929 and present (updated daily),
+                        collected from over 9000 stations. Global summary of the day is comprised of a dozen daily averages computed from
+                        global hourly station data. Daily weather elements include mean values of: temperature, dew point temperature, 
+                        sea level pressure, station pressure, visibility, and wind speed plus maximum and minimum temperature, maximum 
+                        sustained wind speed and maximum gust, precipitation amount, snow depth, and weather indicators. Except for U.S.
+                        stations, 24-hour periods are based upon UTC times.
+                    </h4>
+                </div>
+
+                <div class='row dk_blue_text'>
+                    <h3>Data ETL</h3>
+                </div>
+
+                <div class='row tab'>
+                    <h4>
+                    The data was extracted using BigQuery. The first step being that of identifying weather stations in the Houston area, 
+                    then querying the datasets for each year for each station. Houston weather stations were defined using latitude and 
+                    longitudes, 29.47° to 30.20° and -95.00° to -95.80°, respectively.
+                    </h4>
+                    <h4>
+                    The resulting dataset has a size of 9MB, which will have to be processed to remove null values or features that are deemed irrelevant.
+                    </h4>          
+                </div>
+
+                <div class='row dk_blue_text'>
+                    <h3>Houston Area NOAA Station Locations</h3>
+                </div>
+
+                <div id="mapid"></div>
+
     <!-- Footer with author names and contact information-->
     <footer class = "fixed-bottom">
         <div class="container-fluid bg_black">
@@ -122,11 +145,14 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <!-- Icons -->
+    <script src="static/js/leaflet.extra-markers.min.js"></script>
     <!-- Local JS Files -->
     <script src='../static/js/config.js'></script>
     <script src='../static/js/logic.js'></script>
     <script src='../static/js/map.js'></script>
-</body>
   </body>
 </html>
 
