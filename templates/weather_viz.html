@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <!-- Bootstrap 3 Icons -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- d3 JavaScript -->
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <!-- CSS stylesheet -->
+    <link rel="stylesheet" href="../static/css/style.css">
+    <!-- Leaflet CSS-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" 
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" 
+        crossorigin=""/>
+
+    <title>ML Weather</title>
+  </head>
+
+  <body>
+    <!-- Header -->
+    <div class="container-fluid bg_black">
+        <div class="row">
+            <div class="container">
+                <div class="col-md-8">
+                    <h1>
+                        Houston Weather Modeling
+                    </h1>
+                </div>
+                <div class="col-md-4 bg_black d-none d-md-block">
+                    <a href="https://climate.nasa.gov/news/2839/nasas-airs-captures-polar-vortex-moving-in-over-us/" target="_blank">
+                        <img src="Assets/polar-vortex.gif" alt="NASA's Atmospheric Infrared Sounder (AIRS) instrument showing global temperatures distribution in Celcius" class="pic_header">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <main role="main" class="col-md-12">
+            <!-- Navigation bar -->
+            <nav class="d-none d-md-block">
+                <ul class="nav nav-pills nav-justify pt-3">
+                    <li class="nav-item figHover"><a class="nav-link" href="index.html"><i class="glyphicon glyphicon-home"></i> Home</a></li>
+                    <li class="nav-item figHover"><a class="nav-link" href="about.html"><i class="glyphicon glyphicon-file"></i> About</a></li>
+                    <li class="nav-item figHover"><a class="nav-link" href="weather_viz.html"><i class="glyphicon glyphicon-cloud"></i>Visualizations</a></li>
+                </ul> 
+            </nav>
+            <nav class="d-block d-md-none">
+                <div class="nav nav-pills nav-justify pt-3">
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle figHover" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="glyphicon glyphicon-menu-hamburger"></i> Menu
+                        </a>
+                        <div class="dropdown-menu dropright">
+                            <a class="dropdown-item figHover" href="index.html"><i class="glyphicon glyphicon-home"></i> Home</a>
+                            <a class="dropdown-item figHover" href="about.html"><i class="glyphicon glyphicon-file"></i> About</a>
+                            <a class="dropdown-item figHover" href="weather_viz.html"><i class="glyphicon glyphicon-cloud"></i> Visualizations</a>
+                        </div>
+                    </div> 
+                </div>              
+            </nav>
+            <div class='row dk_blue_text'>
+                <h2>Weather Visualization</h2>
+            </div>
+            <div class = "row">
+                <div class = "viz_display">
+                    <div class="card mb-3">
+                        <img src="" class="card-img-top" alt="">
+                        <div class="card-body"></div>
+                    </div>
+                </div>
+            </div>
+        </main>   
+    </div>
+
+
+    <!-- Footer with author names and contact information-->
+    <footer class = "fixed-bottom">
+        <div class="container-fluid bg_black">
+            <div class= "container centered_text">
+                <div class="row">
+                    <div class = "col-md-12 white_text pt-3">
+                        <p>Authors: <a href='linkedin.com/in/jonathan-antia-88812497'>Jonathan Antia, </a><a href='linkedin.com/in/tanner-lievois-a7b3b4178'>Tanner Lievois, </a><a href='linkedin.com/in/tylers-ward'>Tyler Ward</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+   
+    <!-- JavaScript -->
+    <!-- Plotly JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <!-- Local JS Files -->
+    <script src='../static/js/weather.js'></script>
+  </body>
+</html>
+
+<!-- TODO 
+Add javascript libraries for D3, plotly
+Add scripts for logic and config
+-->

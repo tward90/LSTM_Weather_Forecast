@@ -67,7 +67,7 @@ function init(){
             name: 'Mean Temperature',
             x: futureDates,
             y: modelAvgTemp,
-            line: {color:'black'}
+            line: {color:"#729ECE"}
         };
         const minTempTrace = {
             type: 'scatter',
@@ -75,15 +75,15 @@ function init(){
             name: 'Min Temperature',
             x: futureDates,
             y: modelMinTemp,
-            line: {color:'green'}
+            line: {color:'#FF9E4A'}
         };
         const maxTempTrace = {
             type: 'scatter',
             mode: 'lines',
-            name: 'Min Temperature',
+            name: 'Max Temperature',
             x: futureDates,
             y: modelMaxTemp,
-            line: {color:'orange'}
+            line: {color:'#67BF5C'}
         };
         // define layout
         const layout = {
@@ -93,6 +93,7 @@ function init(){
                 range: [-40,110]
             },
             title: 'Predicted Temperatures'
+            // plot_bgcolor: "#AEC7E8"
         };
         Plotly.newPlot('LSTM-plot', [avgTempTrace, minTempTrace, maxTempTrace], layout);
     }); 
@@ -129,7 +130,7 @@ function init(){
             name: 'Mean Temperature',
             x: futureDates,
             y: modelAvgTemp,
-            line: {color:'black'}
+            line: {color:"#729ECE"}
         };
         const minTempTrace = {
             type: 'scatter',
@@ -137,15 +138,15 @@ function init(){
             name: 'Min Temperature',
             x: futureDates,
             y: modelMinTemp,
-            line: {color:'green'}
+            line: {color:'#FF9E4A'}
         };
         const maxTempTrace = {
             type: 'scatter',
             mode: 'lines',
-            name: 'Min Temperature',
+            name: 'Max Temperature',
             x: futureDates,
             y: modelMaxTemp,
-            line: {color:'orange'}
+            line: {color:'#67BF5C'}
         };
         // define layout
         const layout = {
@@ -155,6 +156,7 @@ function init(){
                 range: [-40,110]
             },
             title: 'Predicted Temperatures'
+            // plot_bgcolor: "#AEC7E8"
         };
         Plotly.newPlot('web-forecast-plot', [avgTempTrace, minTempTrace, maxTempTrace], layout);
     }); 
@@ -239,7 +241,7 @@ function updateInteractivePlot(parameter){
                 name: 'Mean Temperature',
                 x: futureDates,
                 y: chooseModelParameter(parameterSelected)[0],
-                line: {color:'black'}
+                line: {color:"#729ECE"}
             };
             const modelMinTempTrace = {
                 type: 'scatter',
@@ -247,7 +249,7 @@ function updateInteractivePlot(parameter){
                 name: 'Min Temperature',
                 x: futureDates,
                 y: chooseModelParameter(parameterSelected)[1],
-                line: {color:'green'}
+                line: {color:'#FF9E4A'}
             };
             const modelMaxTempTrace = {
                 type: 'scatter',
@@ -255,7 +257,7 @@ function updateInteractivePlot(parameter){
                 name: 'Min Temperature',
                 x: futureDates,
                 y: chooseModelParameter(parameterSelected)[2],
-                line: {color:'orange'}
+                line: {color:'#67BF5C'}
             };
             // define layout
             const layout = {
@@ -275,7 +277,7 @@ function updateInteractivePlot(parameter){
                 name: 'Mean Temperature',
                 x: futureDates,
                 y: chooseOpenWeatherParameter(parameterSelected)[0],
-                line: {color:'black'}
+                line: {color:"#729ECE"}
             };
             const OWMMinTempTrace = {
                 type: 'scatter',
@@ -283,7 +285,7 @@ function updateInteractivePlot(parameter){
                 name: 'Min Temperature',
                 x: futureDates,
                 y: chooseOpenWeatherParameter(parameterSelected)[1],
-                line: {color:'green'}
+                line: {color:'#FF9E4A'}
             };
             const OWMMaxTempTrace = {
                 type: 'scatter',
@@ -291,7 +293,7 @@ function updateInteractivePlot(parameter){
                 name: 'Min Temperature',
                 x: futureDates,
                 y: chooseOpenWeatherParameter(parameterSelected)[2],
-                line: {color:'orange'}
+                line: {color:'#67BF5C'}
             };
             // define layout
             const OWMlayout = {
@@ -312,7 +314,7 @@ function updateInteractivePlot(parameter){
                 name: `${parameterSelected}`,
                 x: futureDates,
                 y: chooseModelParameter(parameterSelected),
-                line: {color:'black'}
+                line: {color:'#FF9E4A'}
             };
             // define layout
             const layout = {
@@ -332,7 +334,7 @@ function updateInteractivePlot(parameter){
                 name: `${parameterSelected}`,
                 x: futureDates,
                 y: chooseOpenWeatherParameter(parameterSelected),
-                line: {color:'black'}
+                line: {color:"#729ECE"}
             };
             // define layout
             const OWMlayout = {
