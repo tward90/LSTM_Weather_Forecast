@@ -15,7 +15,7 @@ This public dataset was created by the National Oceanic and Atmospheric Administ
 Global summary of the day is comprised of a dozen daily averages computed from global hourly station data. Daily weather elements include mean values of: temperature, dew point temperature, sea level pressure, station pressure, visibility, and wind speed plus maximum and minimum temperature, maximum sustained wind speed and maximum gust, precipitation amount, snow depth, and weather indicators. Except for U.S. stations, 24-hour periods are based upon UTC times.
 
 ## ETL:
-The data was extracted using Google's BigQuery, first by identifying weather stations in the Houston area, then querying the datasets for each year. Weather stations in the Houston area were delimited using latitude and longitudes, 29.47° to 30.20° and -95.00° to -95.80°, respectively.
+The data was extracted using Google's BigQuery, first by identifying weather stations in the Houston area, then querying the datasets for each year. Weather stations in the Houston area were delimited using latitude and longitudes, 29.47° to 30.20° and -95.00° to -95.80°, respectively. The data from all station was then averaged per day, resulting in a complete daily dataset from January 1st, 1946 to October 8th, 2020.
 
 ## Data Visualization:
 
@@ -29,10 +29,9 @@ As expected, the dataset showed strong annual seasonality, which needed to be re
 
 After differencing the data by a period of 365 days, most of the seasonality was removed as demonstrated in autocorrelation plots for the different features in the dataset.
 
-###### *Autocorrelation plot of temperature after seasonality reduction*
 ![Autocorrelation plot of temperature after seasonality reduction](/images/tempAutocorrelation.png)
 
-## Long Short-Term Memory (LSTM) Model:
+## Long Short-Term Memory (LSTM) Neural Network Model:
 
 The differenced data was then split into successive slices for training (70%), validation (20%), and testing (10%). The data was then scaled using scikit learn's standard scaler.
 
