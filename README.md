@@ -17,6 +17,9 @@ Global summary of the day is comprised of a dozen daily averages computed from g
 ## ETL:
 The data was extracted using Google's BigQuery, first by identifying weather stations in the Houston area, then querying the datasets for each year. Weather stations in the Houston area were delimited using latitude and longitudes, 29.47° to 30.20° and -95.00° to -95.80°, respectively. The data from all station was then averaged per day, resulting in a complete daily dataset from January 1st, 1946 to October 8th, 2020.
 
+###### *Map of Queried Weather Stations*
+![Map of Houston Showing the location of stations used in the project](/images/mapStations.png)
+
 ## Data Visualization:
 
 ###### *Original data from October 2018 to October 2020*
@@ -60,3 +63,7 @@ In the example below, the values predicted by the model match the trends observe
 
 ###### *Model Temperature Predictions (orange) Versus Targets (blue)*
 ![temperature Predictions](/images/temperaturePredictions.png)
+
+## Application:
+
+A dynamic comparison of our LSTM model predictions versus a weather forecast from OpenWeatherMap can be viewed in our [web application](https://lstm-weather.herokuapp.com/).
