@@ -51,7 +51,7 @@ A sequential model was setup to include the following succession of layers: LSTM
 
 ## Model QC:
 
-Residual values appear to be randomly dispersed around the horizontal axis, idicating that seasonality was effectively removed for the training data and did not affect the model results. Also, the Q-Q plot confirms a close to normal distribution around zero.
+Residual values appear to be randomly dispersed around the horizontal axis, indicating that seasonality was effectively removed for the training data and did not affect the model results. Also, the Q-Q plot confirms a close to normal distribution around zero.
 
 ###### *Model Residuals And Performance*
 ![Model Residuals And Performance Plots](/images/modelResidualsAndPerformancePlots.png)
