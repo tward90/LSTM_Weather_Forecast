@@ -64,6 +64,9 @@ In the example below, the values predicted by the model match the trends observe
 ###### *Model Temperature Predictions (orange) Versus Targets (blue)*
 ![temperature Predictions](/images/temperaturePredictions.png)
 
+###### *Model Temperature Predictions for 36 days*
+![36 day temperature predictions](/images/Figure_1.png)
+
 ## Application:
 
 A dynamic comparison of our LSTM model predictions versus a weather forecast from OpenWeatherMap can be viewed in our [web application](https://lstm-weather.herokuapp.com/).
