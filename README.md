@@ -1,4 +1,4 @@
-# Project 03: Houston Machine-Learning Weather Forecast
+# Houston Machine-Learning Weather Forecast
 
 ## Team Members:
 * Tyler Ward
@@ -20,16 +20,19 @@ The data was extracted using BigQuery, first by identifying weather stations in 
 ## Data Visualization:
 
 ![Original data from October 2018 to October 2020](/images/dataWithSeasonality.png)
+
 *Original data from October 2018 to October 2020*
 
 As expected, the dataset shows strong annual seasonality, which needs to be removed before training a timeseries machine learning model to it.
 
 ![Differenced data from October 2018 to October 2020](/images/differencedData.png)
+
 *Differenced data from October 2018 to October 2020*
 
 After differencing the data by a period of 365 days, most of the seasonality was removed as demonstrated in autocorrelation plots for the different features in the dataset.
 
 ![Autocorrelation plot of temperature after seasonality reduction](/images/differencedData.png)
+
 *Autocorrelation plot of temperature after seasonality reduction*
 
 ## Long Short-Term Memory (LSTM) Model:
@@ -43,10 +46,13 @@ The training, validation, and test datasets were then processed to create datase
 A sequential model was set up to include the following succession of layers: LSTM, Dense, Dropout, Dense, Activation. The optimal parameters for each layer were determined using the [hyperas](https://github.com/maxpumperla/hyperas) distributions module. The model was then compiled using mean absolute error for the loss function, adam for the optimizer.
 
 ![Training and Validation Loss Comparison](/images/bestModelTrainingVsValidationLoss.png)
+
 *Training versus validation loss for the best model*
 
 ![Results for the best model](/images/bestModelResults.png)
+
 *Evaluation of best performing model*
 
-![Parameters for the best model](/images/bestModelResults.png)
+![Parameters for the best model](/images/bestModelParams.png)
+
 *Parameters for the best model*
